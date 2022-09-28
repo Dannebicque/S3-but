@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block content %}
+
+    {{ post.titre }}
+    {{ post.message }}
+    {{ post.datePublication|date('d/m/Y') }}
+{% endblock %}

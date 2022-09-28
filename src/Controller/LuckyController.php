@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,4 +35,12 @@ class LuckyController extends AbstractController
             'request' => $request,
         ]);
     }
+
+//    public function addPost(EntityManagerInterface $entity) {
+//        $post = newx Post();
+//        ...
+//
+//        $entity->persist($post);
+//        $entity->flush();
+//    }
 }
