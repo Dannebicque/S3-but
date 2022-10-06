@@ -46,4 +46,20 @@ class PostController extends AbstractController
             'posts' => $posts
         ]);
     }
+
+    #[Route('/edit-post/{id}', name: 'app_post_edit')]
+    public function editPost(
+        EntityManagerInterface $entityManager,
+        PostRepository $postRepository,
+        Post $id
+    )
+    {
+        // $post = $postRepository->find($id); Pas nécessaire, avec la ligne Post $id
+        $date = new \DateTime('now');
+        $id->setTitre('Modifié le '.$date->format('H:i:s'));
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_posts');
+    }
 }

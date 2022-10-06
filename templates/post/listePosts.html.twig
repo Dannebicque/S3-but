@@ -6,6 +6,7 @@
         <h2>{{ post.titre }}</h2>
         <p>{{ post.message }}</p>
         <p>{{ post.datePublication|date('d/m/Y') }}</p>
+        <a href="{{ path('app_post_edit', {id:post.id}) }}">Modifier</a>
         <hr>
     {% endfor %}
 {% endblock %}
