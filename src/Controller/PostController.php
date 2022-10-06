@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,19 +14,36 @@ class PostController extends AbstractController
     #[Route('/post', name: 'app_post')]
     public function index(
         EntityManagerInterface $entityManager
-    ): Response
-    {
+    ): Response {
         $post = new Post();
-        $post->setTitre('Titre');
-        $post->setMessage('Message');
         $post->setDatePublication(new \DateTime());
+        $post->setMessage('Un message ici...');
+        $post->setTitre('Hello World');
 
         $entityManager->persist($post);
         $entityManager->flush();
 
+        /*
+         * Version possible avant 6.0
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($post);
+        $em->flush();
+        */
 
         return $this->render('post/index.html.twig', [
-            'post' => $post,
+            'post' => $post
+        ]);
+    }
+
+    #[Route('/posts', name: 'app_posts')]
+    public function listePosts(
+        PostRepository $postRepository
+    )
+    {
+        $posts = $postRepository->findAll();
+
+        return $this->render('post/listePosts.html.twig', [
+            'posts' => $posts
         ]);
     }
 }
