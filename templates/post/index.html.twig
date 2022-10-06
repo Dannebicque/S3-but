@@ -3,8 +3,7 @@
 {% block title %}Hello PostController!{% endblock %}
 
 {% block content %}
-
-    {{ post.titre }}
-    {{ post.message }}
-    {{ post.datePublication|date('d/m/Y') }}
+<h1>{{ post.titre }}</h1>
+    <p>{{ post.message }}</p>
+    <i>{{ post.datePublication|date('d/m/Y H:i:s') }} (post N° {{ post.id }})</i>
 {% endblock %}

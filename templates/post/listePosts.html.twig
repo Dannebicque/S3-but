@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<h1>Liste des posts</h1>
+    {% for post in posts %}
+        <h2>{{ post.titre }}</h2>
+        <p>{{ post.message }}</p>
+        <p>{{ post.datePublication|date('d/m/Y') }}</p>
+        <hr>
+    {% endfor %}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
