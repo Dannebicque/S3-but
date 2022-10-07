@@ -19,12 +19,9 @@
     </table>
 
     <div>
-        <ul>
-            {# j'affiche les posts de ma catégorie grâce à la relation inverse #}
         {% for post in post_category.posts %}
-            <li>{{ post.titre }} (publié le {{ post.datePublication|date('d/m/Y H:i:s') }})</li>
+        <p>{{ post.titre }} (publié le : {{ post.datePublication|date('d/m/Y') }})</p>
         {% endfor %}
-        </ul>
     </div>
 
     <a href="{{ path('app_post_category_index') }}">back to list</a>
