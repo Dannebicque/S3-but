@@ -4,7 +4,16 @@
 <h1>Liste des posts</h1>
     {% for post in posts %}
         <h2>{{ post.titre }}</h2>
+        <i>Catégotie :
+            {% if post.category != null %}
+                {{ post.category.libelle }}
+            {% else %}
+                Aucune catégorie
+            {% endif %}
 
+            {# en notation ternaire #}
+            {{ post.category != null ? post.category.libelle : 'Aucune catégorie' }}
+        </i>
         <p>{{ post.message }}</p>
         <p>{{ post.datePublication|date('d/m/Y') }}</p>
         <a href="{{ path('app_post_edit', {id:post.id}) }}">Modifier</a> | <a href="{{ path('app_post_delete', {id:post.id}) }}">Supprimer</a>
