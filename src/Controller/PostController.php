@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Repository\PostCategoryRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,12 +14,17 @@ class PostController extends AbstractController
 {
     #[Route('/post', name: 'app_post')]
     public function index(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        PostCategoryRepository $postCategoryRepository
     ): Response {
+        $category = $postCategoryRepository->find(1);
+
         $post = new Post();
         $post->setDatePublication(new \DateTime());
         $post->setMessage('Un message ici...');
-        $post->setTitre('Hello World');
+        $post->setTitre('Hello World avec une catégorie');
+        $post->setCategory($category);
+
 
         $entityManager->persist($post);
         $entityManager->flush();

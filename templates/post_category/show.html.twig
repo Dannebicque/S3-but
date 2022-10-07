@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PostCategory{% endblock %}
+
+{% block content %}
+    <h1>PostCategory</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post_category.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ post_category.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <ul>
+            {# j'affiche les posts de ma catégorie grâce à la relation inverse #}
+        {% for post in post_category.posts %}
+            <li>{{ post.titre }} (publié le {{ post.datePublication|date('d/m/Y H:i:s') }})</li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <a href="{{ path('app_post_category_index') }}">back to list</a>
+
+    <a href="{{ path('app_post_category_edit', {'id': post_category.id}) }}">edit</a>
+
+    {{ include('post_category/_delete_form.html.twig') }}
+{% endblock %}
