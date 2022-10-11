@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use App\Entity\PostCategory;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,7 +21,11 @@ class PostType extends AbstractType
             ->add('titre', TextType::class, ['label' => 'Titre du post', 'help' => 'Au moins 10 caractères'])
             ->add('datePublication', DateTimeType::class, ['label' => 'Date de publication', 'widget' => 'single_text'])
             ->add('message', TextareaType::class, ['label' => 'Message du post', 'attr' => ['rows' => 20]])
-            //->add('submit', SubmitType::class, ['label' => 'Enregistrer'])
+            ->add('category', EntityType::class, [
+                'class' => PostCategory::class,//entité avec laquelle je fais la liaison
+                'choice_label' => 'libelle', //champs ou la méthode (qui renvoie du texte) que j'affiche
+                'label' => 'Catégorie du post'
+            ])
         ;
     }
 
