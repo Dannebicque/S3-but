@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\PostType;
 use App\Repository\PostCategoryRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,30 +16,25 @@ class PostController extends AbstractController
 {
     #[Route('/post', name: 'app_post')]
     public function index(
+        Request $request,
         EntityManagerInterface $entityManager,
         PostCategoryRepository $postCategoryRepository
     ): Response {
-        $category = $postCategoryRepository->find(1);
-
         $post = new Post();
-        $post->setDatePublication(new \DateTime());
-        $post->setMessage('Un message ici...');
-        $post->setTitre('Hello World avec une catégorie');
-        $post->setCategory($category);
+        $form = $this->createForm(PostType::class, $post);
 
+        $form->handleRequest($request);
 
-        $entityManager->persist($post);
-        $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($post);
+            $entityManager->flush();
 
-        /*
-         * Version possible avant 6.0
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($post);
-        $em->flush();
-        */
+            return $this->redirectToRoute('app_posts');
+        }
 
         return $this->render('post/index.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'form' => $form->createView()
         ]);
     }
 
