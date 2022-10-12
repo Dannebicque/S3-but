@@ -2,12 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Auteur;
 use App\Entity\Post;
 use App\Entity\PostCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,6 +25,11 @@ class PostType extends AbstractType
                 'class' => PostCategory::class,//entité avec laquelle je fais la liaison
                 'choice_label' => 'libelle', //champs ou la méthode (qui renvoie du texte) que j'affiche
                 'label' => 'Catégorie du post'
+            ])
+            ->add('auteur', EntityType::class, [
+                'class' => Auteur::class,//entité avec laquelle je fais la liaison
+                'choice_label' => 'nomPrenom', //champs ou la méthode (qui renvoie du texte) que j'affiche
+                'label' => 'Auteur du post'
             ])
         ;
     }

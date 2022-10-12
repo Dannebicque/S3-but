@@ -16,6 +16,7 @@
         </i>
         <p>{{ post.message }}</p>
         <p>{{ post.datePublication|date('d/m/Y') }}</p>
+        </p>
         <a href="{{ path('app_post_edit', {id:post.id}) }}">Modifier</a> | <a href="{{ path('app_post_delete', {id:post.id}) }}">Supprimer</a>
         <hr>
     {% endfor %}
